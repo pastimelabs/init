@@ -29,9 +29,9 @@ echo ""
 echo "Thanks, let's get started!"
 echo ""
 echo "Installing software..."
-sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-sudo add-apt-repository ppa:certbot/certbot
+add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main"
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+add-apt-repository ppa:certbot/certbot -y
 apt update
 apt upgrade -y
 apt install build-essential vim curl git-core nginx gnupg2 wget software-properties-common unattended-upgrades apticron fail2ban lsb-release figlet update-motd postgresql-9.6 postgresql-contrib libpq-dev python-certbot-nginx -y
@@ -54,7 +54,7 @@ echo "Setting up firewall..."
 ufw allow OpenSSH
 ufw allow http
 ufw allow https
-ufw enable
+ufw --force enable
 ufw status
 echo ""
 echo "Setting up automated updates..."
@@ -72,12 +72,11 @@ chmod +x /etc/update-motd.d/*
 echo ""
 echo "Setting timezone..."
 timedatectl set-timezone America/Los_Angeles
-su - $username
-cd
 echo ""
 echo "Setting up RVM and Ruby $ruby_ver..."
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 curl -sSL https://get.rvm.io | bash -s stable
-source ~/.rvm/scripts/rvm
+source /usr/local/rvm/scripts/rvm
 rvm requirements
 rvm install $ruby_ver
 rvm use $ruby_ver --default
@@ -88,10 +87,10 @@ gem install rails bundler --no-ri --no-rdoc -V
 echo ""
 echo "Setting up NodeJS and Yarn..."
 curl -sL https://deb.nodesource.com/setup_9.x -o nodesource_setup.sh
-sudo bash nodesource_setup.sh
+bash nodesource_setup.sh
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update && sudo apt install nodejs yarn -y
+apt update && apt install nodejs yarn -y
 echo ""
 echo "I think that's it......."
 echo "Bye!"
