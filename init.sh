@@ -23,7 +23,7 @@ read -p "Deployer username: " username
 stty -echo
 read -p "Deployer password: " password
 stty echo
-read "Ruby version: " ruby_ver
+read -p "Ruby version: " ruby_ver
 echo ""
 echo ""
 echo "Thanks, let's get started!"
@@ -40,12 +40,13 @@ echo "Setting up Deployer..."
 adduser $username --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password
 echo "$username:$password" | chpasswd
 mkdir /home/$username/.ssh
-cp /root/authorized_keys /home/$username/.ssh/
+cp /root/.ssh/authorized_keys /home/$username/.ssh/
 chown -R $username:$username /home/$username/.ssh/
 chmod 700 /home/$username/.ssh/
 echo ""
 echo "Setting up SSH..."
 sed -i '/^PermitRootLogin/s/yes/no/' /etc/ssh/sshd_config
+echo "" >> /etc/ssh/sshd_config
 echo "UseDNS no" >> /etc/ssh/sshd_config
 echo "AllowUsers $username" >> /etc/ssh/sshd_config
 systemctl reload ssh
@@ -61,11 +62,12 @@ echo "Setting up automated updates..."
 rm /etc/apt/apt.conf.d/50unattended-upgrades
 rm /etc/apt/apt.conf.d/20auto-upgrades
 rm /etc/apticron/apticron.conf
-cp ./templates/auto-upgrades/50unattended-upgrade /etc/apt/apt.conf.d/
+cp ./templates/auto-upgrades/50unattended-upgrades /etc/apt/apt.conf.d/
 cp ./templates/auto-upgrades/20auto-upgrades /etc/apt/apt.conf.d/
 echo "EMAIL=stevepaulo@gmail.com" >> /etc/apticron/apticron.conf
 echo ""
 echo "Setting up Dynamic MOTD..."
+rm -rf /etc/update-motd.d/
 mkdir /etc/update-motd.d
 cp ./templates/dynamic-motd/* /etc/update-motd.d/
 chmod +x /etc/update-motd.d/*
