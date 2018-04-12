@@ -1,5 +1,5 @@
 # INIT
-## The Pastime Labs server initialization tool
+### The Pastime Labs server initialization tool
 ---
 1. Set up new droplet
 2. SSH in as root
