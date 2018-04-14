@@ -37,7 +37,7 @@ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key a
 add-apt-repository ppa:certbot/certbot -y
 apt update
 apt upgrade -y
-apt install build-essential vim curl git-core nginx gnupg2 wget software-properties-common unattended-upgrades apticron fail2ban lsb-release figlet update-motd postgresql-9.6 postgresql-contrib libpq-dev python-certbot-nginx -y
+apt install build-essential vim curl git-core nginx gnupg2 wget software-properties-common unattended-upgrades apticron fail2ban lsb-release figlet update-motd postgresql-9.6 postgresql-contrib libpq-dev python-certbot-nginx redis-server ruby-redis -y
 apt autoremove -y
 
 echo ""
