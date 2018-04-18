@@ -3,20 +3,13 @@
 ---
 1. Set up new droplet
 2. SSH in as `root`
-3. set up RSA key pair:
+3. clone the repo:
 
 ```
-ssh-keygen
+git clone git@github.com:pastimelabs/init.git
 ```
 
-4. `cat` the public key, copy it and add it to GitHub
-5. clone the repo:
-
-```
-git clone git@github.com:stevepaulo/init.git
-```
-
-6. run it:
+4. run it:
 
 ```
 cd init
