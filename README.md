@@ -42,4 +42,4 @@ It sets acceptable basic security settings:
 * SSH that disallows root login or passwords
 * Automatic security-related software updates
 
-It also sets the timezone and sets up a useful dynamic MOTD
+It also sets the timezone to America/Los_Angeles and sets up a useful dynamic MOTD
